@@ -51,34 +51,34 @@ router.get('/:id', async(req, res) => {
       res.status(500).json(err);
     }
   });
-// router.post('/', async(req, res) => {
-//   // create a new tag
-//   try {
-//     const tagData = await Tag.create({
-//       tag_name: req.body.tag_name
-//     })
-//     .then((tag) => {
-//     if (req.body.productIds && req.body.productIds.length) {
-//       const productTagIdArr = req.body.productIds.map((product_id) => {
-//         return {
-//           product_id,
-//           tag_id: tag.id,
-//         };
-//       });
-//       return ProductTag.bulkCreate(productTagIdArr);
-//     }
-//     // if no product tags, just respond
+router.post('/', async(req, res) => {
+  // create a new tag
+  try {
+    const tagData = await Tag.create({
+      tag_name: req.body.tag_name
+    })
+    .then((tag) => {
+    if (req.body.productIds && req.body.productIds.length) {
+      const productTagIdArr = req.body.productIds.map((product_id) => {
+        return {
+          product_id,
+          tag_id: tag.id,
+        };
+      });
+      return ProductTag.bulkCreate(productTagIdArr);
+    }
+    // if no product tags, just respond
   
-//   })
-//   .then((productTagIds) => res.status(200).json(productTagIds))
-//   .catch((err) => {
-//     console.log(err);
-//     res.status(400).json(err);
-//   });
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+  })
+  .then((productTagIds) => res.status(200).json(productTagIds))
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 // router.put('/:id', async (req, res) => {
 //   // update a tag's name by its `id` value
