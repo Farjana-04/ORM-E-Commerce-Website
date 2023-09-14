@@ -2,51 +2,51 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
-//GET all Category
-// router.get('/', async (req, res) => {
-//   // find all categories
-//   // be sure to include its associated Products
-//   try {
-//     const categoryData = await Category.findAll({
-//       attributes: ['id', 'category_name'],
-//       include: [{
-//         model: Product,
-//         attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
-//       }],
-//     });
-//     res.status(200).json(categoryData);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-// // GET a single category
-// router.get('/:id', async (req, res) => {
-//   // find one category by its `id` value
-//   // be sure to include its associated Products
+// GET all Category
+router.get('/', async (req, res) => {
+  // find all categories
+  // be sure to include its associated Products
+  try {
+    const categoryData = await Category.findAll({
+      attributes: ['id', 'category_name'],
+      include: [{
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      }],
+    });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+// GET a single category
+router.get('/:id', async (req, res) => {
+  // find one category by its `id` value
+  // be sure to include its associated Products
 
-//   try {
-//     // we find a user using their primary key (provided by params)
-//     const categoryData = await Category.findByPk(req.params.id, {
-//       attributes: ['id', 'category_name'],
-//       include: [{
-//         model: Product,
-//         attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
-//       }],
-//     });
+  try {
+    // we find a user using their primary key (provided by params)
+    const categoryData = await Category.findByPk(req.params.id, {
+      attributes: ['id', 'category_name'],
+      include: [{
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+      }],
+    });
 
-//     if (!categoryData) {
-//       res.status(404).json({ message: 'No category found with that id!' });
-//       return;
-//     }
+    if (!categoryData) {
+      res.status(404).json({ message: 'No category found with that id!' });
+      return;
+    }
 
-//     res.status(200).json(categoryData);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
-// router.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
 //   // create a new category
 //   try {
 //     const categoryData = await Category.create({
@@ -94,8 +94,8 @@ const { Category, Product } = require('../../models');
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
-// });
+});
 
 
 
-// module.exports = router;
+module.exports = router;
